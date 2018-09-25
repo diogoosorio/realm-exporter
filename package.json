@@ -1,0 +1,9 @@
+{
+  "name": "realm-exporter",
+  "version": "1.0.0",
+  "description": "Export a Realm database into a more traditional format (e.g. CSV)",
+  "main": "index.js",
+  "author": "Diogo Osório <diogo.g.osorio@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
