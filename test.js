@@ -63,3 +63,20 @@ describe(".select", () => {
     });
   });
 });
+
+describe("CSV translator", () => {
+  it("resolves the promise with the translated data", done => {
+    exporter
+      .load(testDbFile)
+      .then(exporter.select("Cartoon"))
+      .then(exporter.translators.CSV)
+      .then(csvContents => {
+        expect(csvContents).to.eql([
+          '"1","Fred Flinstone","30"',
+          '"2","Johnny Bravo","22"'
+        ].join('\n'));
+        done();
+      })
+      .catch(done);
+  });
+});

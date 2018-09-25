@@ -1,8 +1,18 @@
 const Realm = require("realm");
+const endOfLine = require("os").EOL;
 
 class InvalidObjectTypeError extends Error {}
 
 const errors = { InvalidObjectTypeError };
+
+const translators = Object.freeze({
+  CSV: (objects) => objects
+    .map((obj) => Object.values(obj))
+    .map((values) => values.map((value) => `"${value}"`))
+    .map((values) => values.join(','))
+    .reduce((acc, line) => acc + line + endOfLine, '')
+    .slice(0, -1)
+});
 
 const load = path =>
   new Promise((resolve, reject) => {
@@ -40,4 +50,4 @@ const select = objectType => db =>
     return resolve(objects);
   });
 
-module.exports = { load, select, errors };
+module.exports = { load, select, errors, translators };
