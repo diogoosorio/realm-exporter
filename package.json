@@ -5,16 +5,19 @@
   "author": "Diogo Osório <diogo.g.osorio@gmail.com>",
   "license": "MIT",
   "private": true,
-  "main": "build/main/index.js",
-  "types": "build/types/index.d.ts",
+  "main": "build/main/src/index.js",
+  "types": "build/types/src/**/*.d.ts",
   "engines": {
     "node": "^8"
   },
   "bin": {
-    "realm-exporter": "./src/cli.js"
+    "realm-exporter": "build/main/src/cli.js"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.test.ts --exit"
+    "test": "mocha -r ts-node/register test/**/*.test.ts --exit",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json \"src/**/*.ts\" \"test/**/*.ts\""
   },
   "devDependencies": {
     "@types/chai": "^4.1.6",
@@ -25,6 +28,8 @@
     "mocha": "^5.2.0",
     "prettier": "1.14.3",
     "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.1.1"
   },
   "dependencies": {

@@ -25,10 +25,11 @@
     ]
   },
   "include": [
-    "src/**/*.ts", "src/cli.js"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "tests"
   ]
 }

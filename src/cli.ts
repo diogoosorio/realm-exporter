@@ -1,26 +1,29 @@
-import program from 'commander';
-import { version } from '../package.json'
-import * as exporter from '.'
-import { csvFormatter } from './formatters'
+// tslint:disable:no-console
+
+import program from "commander";
+import * as exporter from ".";
+import { version } from "../package.json";
+import { csvFormatter } from "./formatters";
 
 program
   .version(version)
   .arguments("[database] [object]")
   .action((db, object) => {
-    exporter.load(db)
+    exporter
+      .load(db)
       .then(exporter.select(object))
       .then(csvFormatter)
       .then(csvGenerator => {
-        for (let line of csvGenerator) {
+        for (const line of csvGenerator) {
           console.log(line);
         }
 
         process.exit();
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error.message);
-        process.exit(1)
-      })
+        process.exit(1);
+      });
   });
 
 program.parse(process.argv);
