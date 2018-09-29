@@ -5,8 +5,10 @@
   "author": "Diogo Osório <diogo.g.osorio@gmail.com>",
   "license": "MIT",
   "private": false,
-  "main": "build/main/src/index.js",
   "types": "build/types/src/**/*.d.ts",
+  "files": [
+    "build"
+  ],
   "engines": {
     "node": "^8"
   },
