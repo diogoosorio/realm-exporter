@@ -25,5 +25,5 @@ realm-exporter <db-file> <db-object>
 An example would be:
 
 ```sh
-realm-exporter ~/Downloads/imovirtual/assets/locations_db.realm LocationObject
+realm-exporter my_file.realm MyObject
 ```
