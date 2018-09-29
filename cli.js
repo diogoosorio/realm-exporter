@@ -16,7 +16,9 @@ program
         for (let line of csvGenerator()) {
           console.log(line);
         }
-      })
+
+        process.exit();
+      });
   });
 
 program.parse(process.argv);
