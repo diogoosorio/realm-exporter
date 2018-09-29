@@ -4,7 +4,7 @@
   "description": "Export a Realm database into a more traditional format (e.g. CSV)",
   "author": "Diogo Osório <diogo.g.osorio@gmail.com>",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "main": "build/main/src/index.js",
   "types": "build/types/src/**/*.d.ts",
   "engines": {
@@ -15,10 +15,13 @@
   },
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.test.ts --exit",
+    "clean": "rm -rf ./build",
+    "reset": "git fetch && git reset --hard origin/master",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json \"src/**/*.ts\" \"test/**/*.ts\"",
-    "doc": "typedoc --out doc/ src/"
+    "doc": "typedoc --out doc/ src/",
+    "publish": "clean && reset && npm publish"
   },
   "devDependencies": {
     "@types/chai": "^4.1.6",
