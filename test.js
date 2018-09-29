@@ -26,11 +26,13 @@ describe(".load", () => {
 });
 
 describe(".select", () => {
-  it("resolves the promise with the list of retrieve objects", done => {
+  it("resolves the promise with a generator that yields the objects", done => {
     exporter
       .load(testDbFile)
       .then(exporter.select("Cartoon"))
-      .then(cartoons => {
+      .then(generator => {
+        const cartoons = [...generator()].map(cartoon => cartoon.object)
+
         expect(cartoons).to.eql([
           {
             id: 1,
@@ -70,11 +72,12 @@ describe("CSV translator", () => {
       .load(testDbFile)
       .then(exporter.select("Cartoon"))
       .then(exporter.translators.CSV)
-      .then(csvContents => {
+      .then(csvGenerator => {
+        const csvContents = [...csvGenerator()]
         expect(csvContents).to.eql([
           '"1","Fred Flinstone","30"',
           '"2","Johnny Bravo","22"'
-        ].join('\n'));
+        ]);
         done();
       })
       .catch(done);

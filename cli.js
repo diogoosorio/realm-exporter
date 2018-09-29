@@ -12,7 +12,11 @@ program
       .load(db)
       .then(exporter.select(object))
       .then(exporter.translators.CSV)
-      .then(console.log);
+      .then(csvGenerator => {
+        for (let line of csvGenerator()) {
+          console.log(line);
+        }
+      })
   });
 
-program.parse(process.argv)
+program.parse(process.argv);

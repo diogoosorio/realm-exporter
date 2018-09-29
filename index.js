@@ -6,12 +6,11 @@ class InvalidObjectTypeError extends Error {}
 const errors = { InvalidObjectTypeError };
 
 const translators = Object.freeze({
-  CSV: (objects) => objects
-    .map((obj) => Object.values(obj))
-    .map((values) => values.map((value) => `"${value}"`))
-    .map((values) => values.join(','))
-    .reduce((acc, line) => acc + line + endOfLine, '')
-    .slice(0, -1)
+  CSV: (objectsGenerator) => Promise.resolve(function*() {
+    for (let {object} of objectsGenerator()) {
+      yield Object.values(object).map(value => `"${value}"`).join(",")
+    }
+  })
 });
 
 const load = path =>
@@ -27,9 +26,20 @@ const load = path =>
     return result;
   });
 
-const select = objectType => db =>
+const defaultObjectMapper = (schema, object) =>
+  Object.keys(schema.properties).reduce((acc, key) => {
+    acc[key] = object[key];
+    return acc;
+  }, {});
+
+const select = (
+  objectType,
+  objectMapper = defaultObjectMapper
+) => realmInstance =>
   new Promise((resolve, reject) => {
-    const schema = db.schema.find(schema => schema.name === objectType);
+    const schema = realmInstance.schema.find(
+      schema => schema.name === objectType
+    );
 
     if (!schema) {
       return reject(
@@ -39,15 +49,16 @@ const select = objectType => db =>
       );
     }
 
-    const objectProperties = Object.keys(schema.properties);
-    const objects = db.objects(objectType).map(object => {
-      return objectProperties.reduce((acc, key) => {
-        acc[key] = object[key];
-        return acc;
-      }, {});
-    });
+    const context = { realm: realmInstance };
+    const objects = realmInstance.objects(objectType).entries();
 
-    return resolve(objects);
+    const decoratedObjects = function*() {
+      for (let [, object] of objects) {
+        yield { object: objectMapper(schema, object), context };
+      }
+    };
+
+    return resolve(decoratedObjects);
   });
 
 module.exports = { load, select, errors, translators };
