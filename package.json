@@ -2,10 +2,11 @@
   "name": "realm-exporter",
   "version": "1.0.0",
   "description": "Export a Realm database into a more traditional format (e.g. CSV)",
-  "main": "index.js",
   "author": "Diogo Osório <diogo.g.osorio@gmail.com>",
   "license": "MIT",
   "private": true,
+  "main": "build/main/index.js",
+  "types": "build/types/index.d.ts",
   "engines": {
     "node": "^8"
   },
@@ -15,7 +16,8 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
-    "prettier": "1.14.3"
+    "prettier": "1.14.3",
+    "typescript": "^3.1.1"
   },
   "dependencies": {
     "commander": "^2.18.0",
