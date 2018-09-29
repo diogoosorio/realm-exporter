@@ -6,11 +6,14 @@ class InvalidObjectTypeError extends Error {}
 const errors = { InvalidObjectTypeError };
 
 const translators = Object.freeze({
-  CSV: (objectsGenerator) => Promise.resolve(function*() {
-    for (let {object} of objectsGenerator()) {
-      yield Object.values(object).map(value => `"${value}"`).join(",")
-    }
-  })
+  CSV: objectsGenerator =>
+    Promise.resolve(function*() {
+      for (let object of objectsGenerator()) {
+        yield Object.values(object)
+          .map(value => `"${value}"`)
+          .join(",");
+      }
+    })
 });
 
 const load = path =>
@@ -49,12 +52,10 @@ const select = (
       );
     }
 
-    const context = { realm: realmInstance };
     const objects = realmInstance.objects(objectType).entries();
-
     const decoratedObjects = function*() {
       for (let [, object] of objects) {
-        yield { object: objectMapper(schema, object), context };
+        yield objectMapper(schema, object);
       }
     };
 

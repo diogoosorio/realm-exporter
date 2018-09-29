@@ -31,9 +31,7 @@ describe(".select", () => {
       .load(testDbFile)
       .then(exporter.select("Cartoon"))
       .then(generator => {
-        const cartoons = [...generator()].map(cartoon => cartoon.object)
-
-        expect(cartoons).to.eql([
+        expect([...generator()]).to.eql([
           {
             id: 1,
             name: "Fred Flinstone",
@@ -73,8 +71,7 @@ describe("CSV translator", () => {
       .then(exporter.select("Cartoon"))
       .then(exporter.translators.CSV)
       .then(csvGenerator => {
-        const csvContents = [...csvGenerator()]
-        expect(csvContents).to.eql([
+        expect([...csvGenerator()]).to.eql([
           '"1","Fred Flinstone","30"',
           '"2","Johnny Bravo","22"'
         ]);
