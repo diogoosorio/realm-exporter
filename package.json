@@ -10,13 +10,21 @@
   "engines": {
     "node": "^8"
   },
+  "bin": {
+    "realm-exporter": "./src/cli.js"
+  },
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha -r ts-node/register test/**/*.test.ts --exit"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.6",
+    "@types/commander": "^2.12.2",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.11.3",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "prettier": "1.14.3",
+    "ts-node": "^7.0.1",
     "typescript": "^3.1.1"
   },
   "dependencies": {

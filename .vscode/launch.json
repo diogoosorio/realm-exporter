@@ -10,12 +10,10 @@
             "name": "Mocha Tests",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
-                "-u",
-                "tdd",
-                "--timeout",
-                "999999",
-                "--colors",
-                "${workspaceFolder}"
+                "-r",
+                "ts-node/register",
+                "test/**/*.test.ts",
+                "--exit"
             ],
             "internalConsoleOptions": "openOnSessionStart"
         },
@@ -23,7 +21,15 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/index.js"
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
+            ],
+            "args": [
+                "${workspaceFolder}/src/cli.ts",
+                "${workspaceFolder}/test/tests-db.realm",
+                "Cartoon"
+            ]
         }
     ]
 }
