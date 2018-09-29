@@ -94,4 +94,16 @@ describe(".load", () => {
         .catch(done);
     });
   });
-  
+
+describe('.getObjectNames', () => {
+  it('retrieves all the object names of the database schema', (done) => {
+    exporter
+        .load(testDbFile)
+        .then(exporter.getObjectNames)
+        .then((names) => {
+          expect(names).to.eql(["Cartoon", "a"]);
+          done();
+        })
+        .catch(done);
+  })
+})

@@ -13,7 +13,7 @@
     "node": "^8"
   },
   "bin": {
-    "realm-exporter": "build/main/src/cli.js"
+    "realm-exporter": "build/main/cli/exporter.js"
   },
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.test.ts --exit",

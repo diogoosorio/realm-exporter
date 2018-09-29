@@ -1,29 +1,61 @@
 [![Build Status](https://travis-ci.org/diogoosorio/realm-exporter.svg?branch=master)](https://travis-ci.org/diogoosorio/realm-exporter)
+[![npm version](https://badge.fury.io/js/realm-exporter.svg)](https://badge.fury.io/js/realm-exporter)
 
 # Realm Exporter
 
-Provides a CLI tool and API to quickly export a [Realm](http://realm.io/) database file into a CSV format.
+A command line tool to quickly export your [Realm](http://realm.io/) database into a more "user-friendly" format.
+
+
+## Disclaimer
+
+This tool (and myself) has no assocation with [Realm](http://realm.io/) (the company), the project wasn't developed nor
+is maintained by their team - this was a personal weekend project of mine, brought to existence by my personal necessity.
+
+
+## Installation
+
+You need to install [NodeJS](https://nodejs.org/en/). Realm javascript SDK [doesn't support node 10](https://github.com/realm/realm-js/issues/1813)
+yet, so you'll need to have an older version installed.
+
+You can give a look at [nvm](https://github.com/creationix/nvm) if you have node 10 installed in your system.
+
+After you have node installed, simply install the `npm` package:
+
+```sh
+$ npm install -g realm-exporter
+```
+
+If the installation was successful, you should be able to use the `realm-exporter` command:
+
+```sh
+$ realm-exporter --help
+```
 
 
 ## Usage
 
-To use the CLI tool, declare the project as a global dependency:
+### Commands
 
 ```sh
-npm install -g realm-exporter
+$ realm-exporter objects    # list all objects available on a .realm database file
+$ realm-exporter export     # export all records of an object type
 ```
 
-The `realm-exporter` command should be present in your `$PATH`. The command has the following arguments:
+### Basic usage
+
+Let's retrieve all the available objects on our `.realm` database, using the **objects** command:
 
 ```sh
-realm-exporter <db-file> <db-object>
-
-    * <dbfile>      - the .realm database file you want to extract the data from
-    * <db-object>   - the object within the database you want to dump
+$ realm-exporter objects db.realm
+Cartoon
+Location
 ```
 
-An example would be:
+And dump all the `Cartoon` objects on the database into a CSV file, using the **export** command:
 
 ```sh
-realm-exporter my_file.realm MyObject
+$ realm-exporter export db.realm Cartoons > cartoons.csv
+$ cat cartoons.csv
+"1","Fred Flinstone","30"
+"2","Johnny Bravo","22"
 ```

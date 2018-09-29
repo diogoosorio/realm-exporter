@@ -4,16 +4,16 @@ import { InvalidObjectTypeError } from "./errors";
 
 /**
  * Mapper interface that maps a Realm database object
- * 
+ *
  * Provides an extensibility point do transform/append data to a database retrieved object.
- * 
+ *
  * @see simpleObjectMapper
  */
 export type IObjectMapper = (object: object, schema: ObjectSchema) => object;
 
 /**
  * Establishes the connection to the realm database
- * 
+ *
  * @param path The database .realm file location
  */
 export const load = (path: string): Promise<Realm> =>
@@ -21,12 +21,11 @@ export const load = (path: string): Promise<Realm> =>
     return Realm.open({ readOnly: true, path }).then(resolve, reject);
   });
 
-
 /**
  * Simple implementation of a object mapping
- * 
+ *
  * Converts the Realm.Object instance into a plain javascript object.
- * 
+ *
  * @param object An object extracted from the Realm database
  * @param schema The realm object schema that corresponds to the object
  */
@@ -40,13 +39,12 @@ const simpleObjectMapper: IObjectMapper = (
   }, {});
 };
 
-
 /**
  * Selects all objects of a given type from the database
- * 
+ *
  * The function returns a generator which yields one (already mapped through the provided mapping function) object
  * at a time.
- * 
+ *
  * @param objectType The to be extracted realm object type name within the database
  * @param objectMapper The function responsible for mapping each retrieved object
  */
@@ -76,3 +74,6 @@ export const select = (
 
     return resolve(decoratedObjects());
   });
+
+export const getObjectNames = (realm: Realm) =>
+  Promise.resolve(realm.schema.map(schemaObj => schemaObj.name));
