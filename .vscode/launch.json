@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha Tests",
+            "name": "test",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
                 "-r",
@@ -20,15 +20,30 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "cli:export",
             "runtimeArgs": [
                 "-r",
                 "ts-node/register"
             ],
             "args": [
-                "${workspaceFolder}/src/cli.ts",
+                "${workspaceFolder}/cli/exporter.ts",
+                "export",
                 "${workspaceFolder}/test/tests-db.realm",
                 "Cartoon"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "cli:objects",
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
+            ],
+            "args": [
+                "${workspaceFolder}/cli/exporter.ts",
+                "objects",
+                "${workspaceFolder}/test/tests-db.realm"
             ]
         }
     ]
