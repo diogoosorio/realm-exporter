@@ -7,7 +7,7 @@ import { csvFormatter } from "./formatters";
 
 program
   .version(version)
-  .arguments("[database] [object]")
+  .arguments("<database> <object>")
   .action((db, object) => {
     exporter
       .load(db)
