@@ -1,2 +1,6 @@
 tsconfig.json
 src
+test
+tslint.json
+tsconfig.json
+yarn-error.log
