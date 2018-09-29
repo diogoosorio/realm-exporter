@@ -1,5 +1,4 @@
 const Realm = require("realm");
-const endOfLine = require("os").EOL;
 
 class InvalidObjectTypeError extends Error {}
 

@@ -49,6 +49,17 @@ describe(".select", () => {
       .catch(done);
   });
 
+  it("uses the custom mapper when one is provided", done => {
+    exporter
+      .load(testDbFile)
+      .then(exporter.select("Cartoon", (_, obj) => obj.name))
+      .then(generator => {
+        expect([...generator()]).to.eql(["Fred Flinstone", "Johnny Bravo"]);
+        done();
+      })
+      .catch(done);
+  });
+
   context("when the object type doesn't exist on the database", () => {
     it("rejects the promise with an InvalidObjectTypeError", done => {
       exporter
