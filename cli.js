@@ -11,7 +11,7 @@ program
     exporter
       .load(db)
       .then(exporter.select(object))
-      .then(exporter.translators.CSV)
+      .then(exporter.format.csv)
       .then(csvGenerator => {
         for (let line of csvGenerator()) {
           console.log(line);

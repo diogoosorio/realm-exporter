@@ -75,12 +75,12 @@ describe(".select", () => {
   });
 });
 
-describe("CSV translator", () => {
-  it("resolves the promise with the translated data", done => {
+describe("csv formatter", () => {
+  it("returns a promise which resolves to a generator that yields the CSV lines", done => {
     exporter
       .load(testDbFile)
       .then(exporter.select("Cartoon"))
-      .then(exporter.translators.CSV)
+      .then(exporter.format.csv)
       .then(csvGenerator => {
         expect([...csvGenerator()]).to.eql([
           '"1","Fred Flinstone","30"',

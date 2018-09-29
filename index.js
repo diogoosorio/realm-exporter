@@ -4,8 +4,8 @@ class InvalidObjectTypeError extends Error {}
 
 const errors = { InvalidObjectTypeError };
 
-const translators = Object.freeze({
-  CSV: objectsGenerator =>
+const formatters = Object.freeze({
+  csv: objectsGenerator =>
     Promise.resolve(function*() {
       for (let object of objectsGenerator()) {
         yield Object.values(object)
@@ -61,4 +61,4 @@ const select = (
     return resolve(decoratedObjects);
   });
 
-module.exports = { load, select, errors, translators };
+module.exports = { load, select, errors, format: formatters };
