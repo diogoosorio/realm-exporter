@@ -21,7 +21,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json \"src/**/*.ts\" \"test/**/*.ts\"",
     "doc": "typedoc --out doc/ src/",
-    "npm": "yarn clean && yarn reset && yarn publish"
+    "npm": "yarn clean && yarn reset && yarn lint && yarn test && yarn publish"
   },
   "devDependencies": {
     "@types/chai": "^4.1.6",
