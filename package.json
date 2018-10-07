@@ -5,6 +5,7 @@
   "author": "Diogo Osório <diogo.g.osorio@gmail.com>",
   "license": "MIT",
   "private": false,
+  "keywords": ["realm", "realm export", "realm exporter", "realm csv"],
   "types": "build/types/src/**/*.d.ts",
   "files": [
     "build"
